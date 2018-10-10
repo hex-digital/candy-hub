@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>GetCandy - Login</title>
+    <title>GetCandy - Get a reset token</title>
 
     <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
 
@@ -36,22 +36,11 @@
         <div class="login-form">
           <img src="{{ url('candy-hub/images/logo/getcandy.png') }}" class="logo" alt="GetCandy">
 
-          @if(\Session::has('unauth'))
-            <div class="alert alert-danger">
-              {{ \Session::get('unauth') }}
-            </div>
-          @endif
-          @if($errors->any())
-            <div class="alert alert-danger">
-            <ul>
-              @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-              @endforeach
-            </ul>
-            </div>
-          @endif
 
-          <form method="post">
+          @if (session('status'))
+            <p class="alert alert-success">{{ session('status') }}</p>
+          @endif
+          <form method="post" action="{{ route('password.email') }}">
             {{ csrf_field() }}
 
             <div class="form-group">
@@ -61,28 +50,15 @@
                 <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}">
               </div>
             </div>
-            <div class="form-group">
-              <label class="sr-only">Password</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                <input type="password" class="form-control" placeholder="Password" name="password">
-              </div>
-            </div>
             <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="checkbox">
-                  <input id="rememberMe" type="checkbox">
-                  <label for="rememberMe"><span class="check"></span> <span class="faux-label">Remember Me</span></label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6 text-right">
-                <button type="submit" class="btn btn-primary">Login</button>
+              <div class="col-xs-12 col-md-12 text-right">
+                <button type="submit" class="btn btn-primary">Send Reset Email</button>
               </div>
             </div>
           </form>
           <hr>
           <div class="text-center">
-            <a href="{{ route('password.request') }}" title="Forgotten your password?">Forgot your password?</a>
+            Know your password? <a href="{{ route('hub.login') }}" title="Go to Login page">Go to Login page</a>
           </div>
         </div>
       </div>
@@ -90,5 +66,7 @@
     </div>
   </div>
     <div class="main-purple-overlay"></div>
+
+    <script src="{{ url('candy-hub/js/app.js') }}"></script>
   </body>
 </html>

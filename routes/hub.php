@@ -12,9 +12,9 @@
 */
 
 Route::group([
-    'prefix'     => 'hub',
-    'namespace'  => 'GetCandy\Hub\Http\Controllers',
-    'middleware' => ['web'],
+    'prefix'        => config('getcandy.hub_prefix', 'hub'),
+    'namespace'     => 'GetCandy\Hub\Http\Controllers',
+    'middleware'    => ['web'],
 ], function ($router) {
     $router->get('/', function () {
         return redirect()->route('hub.login');
@@ -29,7 +29,7 @@ Route::group([
         $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
         $router->post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
         $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
-        $router->post('password/reset', 'ResetPasswordController@reset');
+        $router->post('password/reset', 'ResetPasswordController@reset')->name('hub.password.reset');
     });
 
     /*

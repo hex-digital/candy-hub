@@ -97,6 +97,12 @@
                       this.orders[index + 1] = orders;
                   });
 
+                  document.title = 'Editing ' +
+                    this.customer.details.data.firstname +
+                    ' ' +
+                    this.customer.details.data.lastname +
+                    ' - GetCandy';
+
                   apiRequest.send('GET', 'currencies').then(response => {
                       this.currencies = response.data;
                       this.loaded = true;
@@ -261,6 +267,7 @@
                                             <tr>
                                                 <th width="10%">Status</th>
                                                 <th>Order Id</th>
+                                                <th>Order Reference</th>
                                                 <th>Total</th>
                                                 <th>Shipping</th>
                                                 <th>Date Placed / Created</th>
@@ -275,11 +282,16 @@
                                         </tfoot>
                                         <tbody>
                                             <tr v-for="order in orders[ordersBatch]">
-                                              <td><span  class="order-status" :class="order.status">{{ status(order.status) }}</span></td>
+                                              <td>
+                                                  <span  class="order-status" :style="getStyles(order.status)">{{ status(order.status) }}</span>
+                                              </td>
                                               <td>
                                                   <a :href="viewOrder(order.id)" title="View order">
-                                                    {{ order.reference }}
+                                                    {{ order.display_id }}
                                                   </a>
+                                              </td>
+                                              <td>
+                                                  {{ order.reference }}
                                               </td>
                                               <td>
                                                 <span v-html="localisedPrice(order.order_total, order.currency)"></span>
