@@ -16,7 +16,9 @@ var includes = [
       'modal' : 'Modal',
       'notification' : 'NotificationBar',
       'delete' : 'Delete',
-      'layout-picker': 'LayoutPicker'
+      'layout-picker': 'LayoutPicker',
+      'product-browser': 'ProductBrowser',
+      'collection-browser': 'CollectionBrowser',
     }
   },
   /**
@@ -135,7 +137,8 @@ var includes = [
     path: 'catalogue-manager.collections.edit',
     components: {
       'collection-details' : 'CollectionDetails',
-      'collection-availability' : 'CollectionAvailability'
+      'collection-availability' : 'CollectionAvailability',
+      'collection-products' : 'CollectionProducts'
     }
   },
   /**
@@ -155,6 +158,7 @@ var includes = [
       'category-availability' : 'CategoryAvailability',
       'category-details'      : 'CategoryDetails',
       'category-product-positioning' : 'ProductPositioning',
+      'category-nodes' : 'CategoryNodes',
       'category-display': 'CategoryDisplay'
     }
   },
@@ -191,7 +195,7 @@ var includes = [
     path: 'catalogue-manager.products.edit.associations',
     components: {
       'categories' : 'Categories',
-      'collections' : 'Collections',
+      'product-collections' : 'Collections',
       'products' : 'Products'
     }
   },
