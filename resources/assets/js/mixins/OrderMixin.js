@@ -4,6 +4,8 @@ module.exports = {
             statuses: [],
             favourites: [],
             statusSelect: [],
+            types: [],
+            typeSelect: [],
             config: {},
         }
     },
@@ -27,10 +29,23 @@ module.exports = {
                 }
             });
         },
+        getTypes() {
+            apiRequest.send('GET', '/orders/types').then(response => {
+                if (response.data) {
+                    this.types = response.data;
+
+                    this.typeSelect = _.map(this.types, (type) => {
+                        return {
+                            label: type.label ? type.label : 'Unknown',
+                            value: type.label ? type.label : 'Unknown',
+                        }
+                    })
+                }
+            });
+        },
         getStyles(status) {
             if (!this.statuses[status]) {
                 return {
-                    'background-color': 'white',
                     'color' : '#333',
                 };
             }
@@ -40,9 +55,9 @@ module.exports = {
             let color = this.hexToRgb(statusObject.color);
 
             return {
-                'background-color': 'rgba(' + color[0] + ',' + color[1] + ',' + color[2] + ', .05)',
                 'color' : statusObject.color,
-                'border-color': statusObject.color,
+                'border': 'transparent',
+                'padding' : 0,
             };
         },
         hexToRgb(hex) {
